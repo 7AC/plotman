@@ -88,9 +88,11 @@ directories:
         # If multiple directories share a common prefix, reports will
         # abbreviate and show just the uniquely identifying suffix.
         tmp:
-                - /mnt/plotter1/chia
-                - /mnt/plotter2/chia
-                - /mnt/plotter3/chia
+                - /mnt/plotter1/plots
+                - /mnt/plotter2/plots
+                - /mnt/plotter3/plots
+                #- /mnt/plotter4/plots
+                #- /home/tac/plots
 
         # Optional: Allows overriding some characteristics of certain tmp
         # directories. This contains a map of tmp directory names to
@@ -99,11 +101,11 @@ directories:
         #
         # Currently support override parameters:
         #     - tmpdir_max_jobs
-        tmp_overrides:
+        #tmp_overrides:
                 # In this example, /mnt/tmp/00 is larger than the other tmp
                 # dirs and it can hold more plots than the default.
-                "/mnt/plotter2/chia":
-                        tmpdir_max_jobs: 1
+                #        "/mnt/plotter2/chia":
+                #        tmpdir_max_jobs: 1
 
         # Optional: tmp2 directory.  If specified, will be passed to
         # chia plots create as -2.  Only one tmp2 directory is supported.
@@ -117,6 +119,9 @@ directories:
                 - /mnt/farmer1/chia
                 - /mnt/farmer2/chia
                 - /mnt/farmer3/chia
+                - /mnt/farmer4/chia
+                - /mnt/farmer5/chia
+                - /mnt/farmer6/chia
 
         # Archival configuration.  Optional; if you do not wish to run the
         # archiving operation, comment this section out.
@@ -149,22 +154,22 @@ scheduling:
         # Phase major corresponds to the plot phase, phase minor corresponds to
         # the table or table pair in sequence, phase limit corresponds to
         # the number of plots allowed before [phase major, phase minor]
-        tmpdir_stagger_phase_major: 2
-        tmpdir_stagger_phase_minor: 1
+        tmpdir_stagger_phase_major: 1
+        tmpdir_stagger_phase_minor: 4
         # Optional: default is 1
         tmpdir_stagger_phase_limit: 2
 
         # Don't run more than this many jobs at a time on a single temp dir.
-        tmpdir_max_jobs: 7
+        tmpdir_max_jobs: 6
 
         # Don't run more than this many jobs at a time in total.
-        global_max_jobs: 16
+        global_max_jobs: 13
 
         # Don't run any jobs (across all temp dirs) more often than this, in minutes.
-        global_stagger_m: 30
+        global_stagger_m: 50
 
         # How often the daemon wakes to consider starting a new plot job, in seconds.
-        polling_time_s: 20
+        polling_time_s: 40
 
 
 # Plotting parameters.  These are pass-through parameters to chia plots create.
