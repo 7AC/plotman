@@ -1,4 +1,67 @@
-# Default/example plotman.yaml configuration file
+# Temporary Drive Plotter Phase Settings
+
+# Because Chia Phase 1 utilizes more memory and cpu (thread) resources
+# AND is the only multi-threaded stage (after phase 1, the jobs are single threaded)
+# These phase settings can help fine tune your chia plotting process
+# beyond setting a stagger or limit on number of concurrent jobs
+
+# There are 3 parameters that will help you achieve this. But before learning those,
+# take a look at the table below, to learn all the phases and steps of the chia plotting process
+
+# Chia Phase:Step Table
+
+# Phase	Step	% Progress
+# 1	1	1%
+# 1	2	6%
+# 1	3	12%
+# 1	4	20%
+# 1	5	28%
+# 1	6	36%
+# 1	7	42%
+
+# 2	1	43%
+# 2	2	48%
+# 2	3	51%
+# 2	4	55%
+# 2	5	58%
+# 2	6	61%
+
+# 3	1	66%
+# 3	2	73%
+# 3	3	79%
+# 3	4	85%
+# 3	5	92%
+# 3	6	98%
+
+# 4	1	100%
+
+# Example 1 - Detailed Explanation
+
+# The tmpdir_stagger_phase_major and tmpdir_stagger_phase_minor correspond
+# to the phase and step the plotting process is currently in
+# For e.g. it could be 2:1 (2 is the phase or major, 1 is the step or minor)
+#tmpdir_stagger_phase_major = 2		# phase 2
+#tmpdir_stagger_phase_minor = 1		# step 1
+
+# The tmpdir_stagger_phase_limit corresponds to the number of plot jobs that can be
+# concurrently run before reaching phase 2, step 1 or 2:1
+# If this is set to 2, then there will always be 2 plot jobs
+# concurrently ran during phase 1. Or specifically during (1:1, 1:2, 1:3, 1:4, 1:5, 1:6, 1:7)
+#tmpdir_stagger_phase_limit = 2		# limit of 2 plot jobs
+
+# Example 2
+# You may decide you want to allow 3 conconcurrent plot jobs to run during phase 1
+# Increase the tmpdir_stagger_phase_limit to 3
+# tmpdir_stagger_phase_major = 2	# phase 2
+# tmpdir_stagger_phase_minor = 1	# step 1
+# tmpdir_stagger_phase_limit = 3	# limit of 3 plot jobs
+
+# Example 3
+# You may decide you want to relax the restriction and expand the phase:step to 3:1
+# And Increase the limit on jobs to 4
+# tmpdir_stagger_phase_major = 3	# phase 3
+# tmpdir_stagger_phase_minor = 1	# step 1
+# tmpdir_stagger_phase_limit = 4	# limit of 4 plot jobs
 
 # Options for display and rendering
 user_interface:
@@ -98,7 +161,7 @@ scheduling:
         global_max_jobs: 16
 
         # Don't run any jobs (across all temp dirs) more often than this, in minutes.
-        global_stagger_m: 0
+        global_stagger_m: 30
 
         # How often the daemon wakes to consider starting a new plot job, in seconds.
         polling_time_s: 20
