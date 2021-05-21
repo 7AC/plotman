@@ -115,13 +115,10 @@ directories:
         # These again are presumed to be on independent physical devices,
         # so writes (plot jobs) and reads (archivals) can be scheduled
         # to minimize IO contention.
-        dst:
-                - /mnt/farmer1/chia
-                - /mnt/farmer2/chia
-                - /mnt/farmer3/chia
-                - /mnt/farmer4/chia
-                - /mnt/farmer5/chia
-                - /mnt/farmer6/chia
+        #dst:
+                #- /mnt/plotter1
+                #- /mnt/plotter2
+                #- /mnt/plotter3
 
         # Archival configuration.  Optional; if you do not wish to run the
         # archiving operation, comment this section out.
@@ -129,12 +126,12 @@ directories:
         # Currently archival depends on an rsync daemon running on the remote
         # host, and that the module is configured to match the local path.
         # See code for details.
-        #archive:
-        #        rsyncd_module: plots
-        #        rsyncd_path: /plots
-        #        rsyncd_bwlimit: 80000  # Bandwidth limit in KB/s
-        #        rsyncd_host: myfarmer
-        #        rsyncd_user: chia
+        archive:
+                rsyncd_module: chia
+                rsyncd_path: /mnt/farmers
+                rsyncd_bwlimit: 100000  # Bandwidth limit in KB/s
+                rsyncd_host: localhost
+                rsyncd_user: tac
                 # Optional index.  If omitted or set to 0, plotman will archive
                 # to the first archive dir with free space.  If specified,
                 # plotman will skip forward up to 'index' drives (if they exist).
@@ -163,10 +160,10 @@ scheduling:
         tmpdir_max_jobs: 6
 
         # Don't run more than this many jobs at a time in total.
-        global_max_jobs: 13
+        global_max_jobs: 14
 
         # Don't run any jobs (across all temp dirs) more often than this, in minutes.
-        global_stagger_m: 50
+        global_stagger_m: 45
 
         # How often the daemon wakes to consider starting a new plot job, in seconds.
         polling_time_s: 40
